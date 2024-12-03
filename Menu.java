@@ -1,152 +1,267 @@
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
 public class Menu {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         int opt = 0;
+        final String url = "jdbc:mysql://localhost:3306/eventojava";
+        final String user = "root";
+        final String password = "";
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Professor> professores = new ArrayList<Professor>();
-        ArrayList<Curso> cursos = new ArrayList<Curso>();
-        ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 
         do {
             System.out.println("Opções: ");
-            System.out.println("1 - Cadastrar Professor");
-            System.out.println("2 - Cadastrar Curso");
-            System.out.println("3 - Cadastrar Aluno");
-            System.out.println("4 - Listar Professor");
-            System.out.println("5 - Listar Curso");
-            System.out.println("6 - Listar Aluno");
+            System.out.println("1 - Cadastrar Evento"); // insert \/
+            System.out.println("2 - Cadastrar Local"); // insert \/
+            System.out.println("3 - Cadastrar Notificacao"); // insert \/
+            System.out.println("3 - Cadastrar Organizador"); // insert \/
+            System.out.println("3 - Cadastrar Participante"); // insert
+            System.out.println("3 - Cadastrar Pessoa"); // insert
+            System.out.println("1 - Listar Evento"); // select
+            System.out.println("2 - Listar Local"); // select
+            System.out.println("3 - Listar Notificacao"); // select
+            System.out.println("3 - Listar Organizador"); // select
+            System.out.println("3 - Listar Participante"); // select
+            System.out.println("3 - Listar Pessoa"); // select
             System.out.println("7 - Saindo.....");
             try {
                 opt = scanner.nextInt();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
 
-                switch (opt) {
-                    case 1: {
-                        System.out.println("Digite o id do professor: ");
-                        int idProfessor = scanner.nextInt();
-                        System.out.println("Digite o nome do professor: ");
-                        String nomeProfessor = scanner.next();
-                        System.out.println("Digite o departamento do professor: ");
-                        String departamento = scanner.next();
+            switch (opt) {
+                case 1: {
+                    try {
+                        System.out.println("Informe o id do evento: ");
+                        Integer idEvento = scanner.nextInt();
+                        System.out.println("Informe a data do evento: ");
+                        String dataEvento = scanner.next();
 
-                        Professor professor = new Professor(idProfessor, nomeProfessor, departamento);
-                        professores.add(professor);
+                        Connection con = DriverManager.getConnection(url, user, password);
+                        Statement stm = con.createStatement();
+                        boolean sql = stm.execute("INSERT INTO Evento"
+                                + "(idEvento , dataEvento) VALUES "
+                                + "('" + idEvento + "', '" + dataEvento + "')");
+                        if (!sql) {
+                            System.out.println("Falha na execução");
+                        }
+                        con.close();
+                    } catch (SQLException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                }
+                case 2: {
+                    try {
+                        System.out.println("Informe o id do local: ");
+                        Integer idLocal = scanner.nextInt();
+                        System.out.println("Informe a descrição do local: ");
+                        String descricaoLocal = scanner.next();
+                        System.out.println("Informe as vagas do local: ");
+                        String vagasLocal = scanner.next();
 
-                        break;
+                        Connection con = DriverManager.getConnection(url, user, password);
+                        Statement stm = con.createStatement();
+                        boolean sql = stm.execute("INSERT INTO Local "
+                                + "(idLocal , descricaoLocal , vagasLocal) VALUES "
+                                + "('" + idLocal + "', '" + descricaoLocal + "', '" + vagasLocal + "')");
+                        if (!sql) {
+                            System.out.println("Falha na execução");
+                        }
+                        con.close();
+                    } catch (SQLException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                }
+                case 3: {
+                    try {
+                        System.out.println("Informe o tipo de notificação: ");
+                        String tipoNotificacao = scanner.next();
+                        System.out.println("Informe a data de nascimento do aluno");
+                        String conteudoNotificacao = scanner.next();
+
+                        Connection con = DriverManager.getConnection(url, user, password);
+                        Statement stm = con.createStatement();
+                        boolean sql = stm.execute("INSERT INTO Notificacao "
+                                + "(tipoNotificacao , conteudoNotificacao) VALUES "
+                                + "('" + tipoNotificacao + "', '" + conteudoNotificacao + "')");
+                        if (!sql) {
+                            System.out.println("Falha na execução");
+                        }
+                        con.close();
+                    } catch (SQLException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                }
+                case 4: {
+                    try {
+                        System.out.println("Informe o id do organizador: ");
+                        Integer idOrganizador = scanner.nextInt();
+                        System.out.println("Informe o email do organizador: ");
+                        String emailOrganizador = scanner.next();
+
+                        Connection con = DriverManager.getConnection(url, user, password);
+                        Statement stm = con.createStatement();
+                        boolean sql = stm.execute("INSERT INTO Organizador "
+                                + "(idOrganizador , emailOrganizador) VALUES "
+                                + "('" + idOrganizador + "', '" + emailOrganizador + "')");
+                        if (!sql) {
+                            System.out.println("Falha na execução");
+                        }
+                        con.close();
+                    } catch (SQLException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                }
+                case 5: {
+                    try {
+                        System.out.println("Informe o id do participante: ");
+                        Integer idParticipante = scanner.nextInt();
+                        System.out.println("Informe o telefone do participante: ");
+                        String telefoneParticipante = scanner.next();
+
+                        Connection con = DriverManager.getConnection(url, user, password);
+                        Statement stm = con.createStatement();
+                        boolean sql = stm.execute("INSERT INTO Participante "
+                                + "(idParticipante , telefoneParticipante) VALUES "
+                                + "('" + idParticipante + "', '" + telefoneParticipante + "')");
+                        if (!sql) {
+                            System.out.println("Falha na execução");
+                        }
+                        con.close();
+                    } catch (SQLException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                }
+
+                case 6: {
+                    try {
+                        System.out.println("Informe o id da pessoa(): ");
+                        Integer idPessoa = scanner.nextInt();
+                        System.out.println("Informe o nome da pessoa: ");
+                        String nomePessoa = scanner.next();
+
+                        Connection con = DriverManager.getConnection(url, user, password);
+                        Statement stm = con.createStatement();
+                        boolean sql = stm.execute("INSERT INTO Pessoa "
+                                + "(idPessoa , nomePessoa) VALUES "
+                                + "('" + idPessoa + "', '" + nomePessoa + "')");
+                        if (!sql) {
+                            System.out.println("Falha na execução");
+                        }
+                        con.close();
+                    } catch (SQLException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                }
+
+                // select//select//select//select//select//select//select//select//select
+                case 7: {
+                    try {
+                        Connection con = DriverManager.getConnection(url, user, password);
+                        Statement stm = con.createStatement();
+                        ResultSet sql = stm.executeQuery("SELECT * FROM evento;");
+                        while (sql.next()) {
+                            System.out.println(new Professor(
+                                    sql.getInt("idEvento"),
+                                    sql.getString("idOrganizador"),
+                                    sql.getString("departamento")
+
+                            ));
+                        }
+                        con.close();
+                    } catch (SQLException e) {
+                        System.out.println(e.getMessage());
                     }
 
-                    case 2: {
-                        System.out.println("Digite o id do curso: ");
-                        int idCurso = scanner.nextInt();
-                        System.out.println("Digite o nome do curso: ");
-                        String nomeCurso = scanner.next();
-                        System.out.println("Digite a carga horária do curso: ");
-                        int carga_horaria = scanner.nextInt();
-                        System.out.println("Digite o Id do professor responsável pelo curso: ");
-                        int professorCurso = scanner.nextInt();
-                        Professor prof = null;
-                        for (Professor professor : professores) {
-                            if (professor.idProfessor == professorCurso) {
-                                prof = professor;
-                            }
-                            ;
-                        }
-                        ;
+                    System.out.println("- - - - - - - - - - - -");
 
-                        if (prof != null) {
-                            Curso curso = new Curso(idCurso, nomeCurso, carga_horaria, prof);
-                            cursos.add(curso);
-                        } else {
-                            System.out.println("Id do professor inválido, tente novamente");
-                        }
+                    break;
+                }
+                case 5:
+                    try {
+                        Connection con = DriverManager.getConnection(url, user, password);
+                        Statement stm = con.createStatement();
+                        ResultSet sql = stm.executeQuery("SELECT * FROM evento;");
+                        while (sql.next()) {
+                            ResultSet sqlCurso = stm
+                                    .executeQuery(
+                                            "SELECT * FROM curso WHERE id = " + sql.getInt("idOrganizador") + ";");
 
-                        break;
-                    }
-                    case 3: {
-                        System.out.println("Digite o id do aluno: ");
-                        int idAluno = scanner.nextInt();
-                        System.out.println("Digite o nome do aluno: ");
-                        String nomeAluno = scanner.next();
-                        System.out.println("Digite a data de nascimento do aluno: ");
-                        String dataNasc = scanner.next();
-                        System.out.println("Digite o cpf do aluno: ");
-                        String Cpf = scanner.next();
-                        System.out.println("Digite o Id do curso que o aluno frequenta: ");
-                        int cursoAluno = scanner.nextInt();
-                        Curso cursoAtual = null;
-                        for (Curso curso : cursos) {
-                            if (curso.idCurso == cursoAluno) {
-                                cursoAtual = curso;
-                            }
-                        }
+                            if (sqlCurso.next()) {
+                                ResultSet sqlProfessor = stm.executeQuery(
+                                        "SELECT * FROM professor WHERE id = " + sqlCurso.getInt("idProfessor") + ";");
 
-                        if (cursoAtual != null) {
-                            Aluno aluno1 = new Aluno(idAluno, nomeAluno, dataNasc, Cpf, cursoAtual);
-                            alunos.add(aluno1);
-                        } else {
-                            System.out.println("Id do curso inválido, tente novamente");
-                        }
+                                if (sqlProfessor.next()) {
+                                    Professor professor = new Professor(
+                                            sqlProfessor.getInt("idProfessor"),
+                                            sqlProfessor.getString("nomeProfessor"),
+                                            sqlProfessor.getString("departamento"));
 
-                        break;
-                    }
-                    case 4:
-                        for (Professor professorPrint : professores) {
-                            System.out.println("Nome do professor: " + professorPrint.nomeProfessor);
-                            System.out.println("Departamento: " + professorPrint.departamento);
-                            for (Curso curso : cursos) {
-                                if (curso.professorCurso.idProfessor == professorPrint.idProfessor) {
-                                    System.out.println("Cursos lecionados pelo professor:" + curso.nomeCurso);
-                                    int contadorAlunos = 0;
-                                    for (Aluno aluno : alunos) {
-                                        if (aluno.cursoAluno.idCurso == curso.idCurso) {
-                                            contadorAlunos++;
-                                        }
-                                    }
-                                    System.out.println("Total de alunos no curso: " + contadorAlunos);
+                                    Curso curso = new Curso(
+                                            sqlCurso.getInt("idCurso"),
+                                            sqlCurso.getString("nomeCurso"),
+                                            sqlCurso.getInt("carga_horaria"),
+                                            professor);
+
+                                    System.out.println(new Aluno(
+                                            sql.getInt("idAluno"),
+                                            sql.getString("nomeAluno"),
+                                            sql.getString("dataNasc"),
+                                            sql.getString("Cpf"),
+                                            curso));
                                 }
                             }
-                            System.out.println("- - - - - - - - - - - -");
+                        }
+                        con.close();
+                    } catch (SQLException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 6:
+                    try {
+                        Connection con = DriverManager.getConnection(url, user, password);
+                        Statement stm = con.createStatement();
+                        ResultSet sql = stm.executeQuery("SELECT * FROM curso;");
+                        while (sql.next()) {
+                            ResultSet sqlProfessor = stm.executeQuery(
+                                    "SELECT * FROM professor WHERE id = " + sql.getInt("idProfessor") + ";");
 
+                            if (sqlProfessor.next()) {
+                                Professor professor = new Professor(
+                                        sqlProfessor.getInt("idProfessor"),
+                                        sqlProfessor.getString("nomeProfessor"),
+                                        sqlProfessor.getString("departamentoProf"));
+
+                                System.out.println(new Curso(
+                                        sql.getInt("idCurso"),
+                                        sql.getString("nomeCurso"),
+                                        sql.getInt("carga_horaria"),
+                                        professor));
+                            }
                         }
-                        // deverá ser impresso o nome do Professor e o Departamento e todos os cursos no
-                        // qual ele está associado, com a respectiva quantidade de alunos.
-                        break;
-                    case 5:
-                        for (Curso cursoPrint : cursos) {
-                            System.out.println("Nome do curso: " + cursoPrint.nomeCurso);
-                            System.out.println("Carga horária do curso: " + cursoPrint.carga_horaria);
-                            System.out.println(
-                                    "Nome do professor responsavel: " + cursoPrint.professorCurso.nomeProfessor);
-                            // Na listagem de Cursos, deverá ser impresso o nome do Curso, a Carga Horária e
-                            // o nome do Professor.
-                        }
-                        break;
-                    case 6:
-                        for (Aluno alunoPrint : alunos) {
-                            System.out.println("Nome do aluno: " + alunoPrint.nomeAluno);
-                            System.out.println("Data de nascimento: " + alunoPrint.dataNasc);
-                            System.out.println("Cpf do aluno: " + alunoPrint.Cpf);
-                            System.out.println("Nome do curso: " + alunoPrint.cursoAluno.nomeCurso);
-                            // Na listagem de Alunos, deverá ser impresso o nome do Aluno, a Data de
-                            // Nascimento, o C.P.F. e o nome do Curso.
-                        }
-                        break;
-                    case 7:
-                        System.out.println("Saindo...");
-                        break;
-                    default:
-                        break;
-                }
-            } catch (Exception e) {
-                System.out.println("Opção inválida");
-                scanner.nextLine();
-                continue;
+                        con.close();
+                    } catch (SQLException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
             }
-        } while (opt != 7);
 
+        } while (opt != 7);
         scanner.close();
     }
-
 }
