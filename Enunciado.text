@@ -1,9 +1,0 @@
-                        System.out.println("Digite o id do professor: ");
-                        int idProfessor = scanner.nextInt();
-                        System.out.println("Digite o nome do professor: ");
-                        String nomeProfessor = scanner.next();
-                        System.out.println("Digite o departamento do professor: ");
-                        String departamento = scanner.next();
-
-                        Professor professor = new Professor(idProfessor, nomeProfessor, departamento);
-                        professores.add(professor);
