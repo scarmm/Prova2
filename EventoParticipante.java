@@ -1,6 +1,6 @@
 public class EventoParticipante {
 
-    int idEvento;
+    int idEventoP;
     int idParticipante;
 
 public EventoParticipante(

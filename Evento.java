@@ -7,16 +7,16 @@ public class Evento {
 
     public Evento(
 
-        int idEvento,
-        int idOrganizador,
-        int idLocal,
-        String dataEvento
+            int idEvento,
+            int idOrganizador,
+            int idLocal,
+            String dataEvento
 
-        ){
-            this.idEvento = idEvento;
-            this.idOrganizador = idOrganizador;
-            this.idLocal = idLocal;
-            this.dataEvento = dataEvento;
-        }
+    ) {
+        this.idEvento = idEvento;
+        this.idOrganizador = idOrganizador;
+        this.idLocal = idLocal;
+        this.dataEvento = dataEvento;
+    }
 
 }
