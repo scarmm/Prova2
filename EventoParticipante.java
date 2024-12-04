@@ -4,7 +4,7 @@ public class EventoParticipante {
     int idParticipante;
 
 public EventoParticipante(
-
+    
     int idEvento,
     int idParticipante
 
