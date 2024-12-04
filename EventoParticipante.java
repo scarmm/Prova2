@@ -9,7 +9,7 @@ public EventoParticipante(
     int idParticipante
 
     ){
-        this.idEvento = idEvento;
+        this.idEventoP = idEvento;
         this.idParticipante = idParticipante;
 
     }
